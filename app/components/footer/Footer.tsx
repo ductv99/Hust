@@ -10,32 +10,39 @@ import {
 const Footer = () => {
     const categoryList = [
         {
+            id: 1,
             name: "Giày Nam",
             url: "#"
         },
         {
+            id: 2,
             name: "Giày Nữ",
             url: "#"
         },
         {
+            id: 3,
             name: "Giày Trẻ Em",
             url: "#"
         }
     ];
     const customerServiceList = [
         {
+            id: 1,
             name: "Liên Hệ Với Chúng Tôi",
             url: "#"
         },
         {
+            id: 2,
             name: "Chính Sách Vận Chuyển",
             url: "#"
         },
         {
+            id: 3,
             name: "Trả Hàng & Đổi Hàng",
             url: "#"
         },
         {
+            id: 4,
             name: "FAQs",
             url: "#"
         }
@@ -48,7 +55,7 @@ const Footer = () => {
                         <h3 className="text-base font-bold mb-2"> Danh Mục Sản Phẩm </h3>
                         {categoryList.map((itemCategory) =>
                         (
-                            <Link href={itemCategory.url}>
+                            <Link key={itemCategory.id} href={itemCategory.url}>
                                 {itemCategory.name}
                             </Link>
                         )
@@ -58,7 +65,7 @@ const Footer = () => {
                         <h3 className="text-base font-bold mb-2">Chăm Sóc Khánh Hàng</h3>
                         {customerServiceList.map((itemService) =>
                         (
-                            <Link href={itemService.url}>
+                            <Link key={itemService.id} href={itemService.url}>
                                 {itemService.name}
                             </Link>
                         )
