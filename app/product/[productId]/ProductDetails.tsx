@@ -6,7 +6,9 @@ import SetQuantity from "@/app/components/products/SetQuantity";
 import SetSize from "@/app/components/products/SetSize";
 import { useCart } from "@/hooks/useCart";
 import { Rating } from "@mui/material";
-import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { MdCheckCircle } from "react-icons/md";
 
 interface productDetailsProps {
     product: any
@@ -31,7 +33,8 @@ const Horizontal = () => {
     return <hr className="w-[30%] my-2" />
 }
 const productDetails: React.FC<productDetailsProps> = ({ product }) => {
-
+    const { handleAddProductToCart, cartProducts } = useCart();
+    const [isProductInCart, setIsProductInCart] = useState(false)
     const [cartProduct, setCartProduct] = useState<CartProductType>(
         {
             id: product.id,
@@ -45,6 +48,18 @@ const productDetails: React.FC<productDetailsProps> = ({ product }) => {
         }
     )
 
+    const router = useRouter()
+    console.log(cartProducts)
+    useEffect(() => {
+        setIsProductInCart(false)
+        if (cartProducts) {
+            const existingIndex = cartProducts.findIndex((item) => item.id === product.id)
+            if (existingIndex > -1) {
+                setIsProductInCart(true)
+            }
+        }
+
+    }, [cartProducts])
     const productRating =
         product.reviews.reduce((acc: number, items: any) =>
             items.rating + acc, 0) / product.reviews.length
@@ -118,30 +133,45 @@ const productDetails: React.FC<productDetailsProps> = ({ product }) => {
                     {product.inStock ? "Còn hàng" : "Hết hàng"}
                 </div>
                 <Horizontal />
-                <SetColor
-                    cartProduct={cartProduct}
-                    images={product.images}
-                    handColorSelect={handleColorSelect}
-                />
-                <Horizontal />
-                <SetSize
-                    cartProduct={cartProduct}
-                    sizes={product.sizes}
-                    handleSizeSelected={handleSizeSelected}
-                />
-                <Horizontal />
-                <SetQuantity
-                    cartProduct={cartProduct}
-                    handleQtyIncrease={handleQtyIncrease}
-                    handleQtyDecrease={handleQtyDecrease}
-                />
-                <Horizontal />
-                <div className="max-w-[300px]">
-                    <Button
-                        label="Thêm vào giỏ hàng"
-                        onClick={() => { }}
+                {isProductInCart ? (<>
+                    <p className="mb-2 text-stale-700 flex items-center gap-1">
+                        <MdCheckCircle className="text-green-500" size={20} />
+                        <span>Sản phẩm đã được thêm vào giỏ hàng</span>
+                    </p>
+                    <div className="max-w-[300px]">
+                        <Button
+                            label="Xem giỏ hàng"
+                            outline
+                            onClick={() => router.push("/cart")}
+                        />
+                    </div>
+                </>) : (<>
+                    <SetColor
+                        cartProduct={cartProduct}
+                        images={product.images}
+                        handColorSelect={handleColorSelect}
                     />
-                </div>
+                    <Horizontal />
+                    <SetSize
+                        cartProduct={cartProduct}
+                        sizes={product.sizes}
+                        handleSizeSelected={handleSizeSelected}
+                    />
+                    <Horizontal />
+                    <SetQuantity
+                        cartProduct={cartProduct}
+                        handleQtyIncrease={handleQtyIncrease}
+                        handleQtyDecrease={handleQtyDecrease}
+                    />
+                    <Horizontal />
+                    <div className="max-w-[300px]">
+                        <Button
+                            label="Thêm vào giỏ hàng"
+                            onClick={() => handleAddProductToCart(cartProduct)}
+                        />
+                    </div>
+                </>)}
+
             </div>
         </div>
     );
