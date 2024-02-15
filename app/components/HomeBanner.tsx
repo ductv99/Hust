@@ -1,3 +1,6 @@
+
+import Image from "next/image";
+
 const HomeBanner = () => {
     return (
         <div className="relative bg-gradient-to-r from-sky-400 to-sky-600 mb-8">
@@ -11,10 +14,10 @@ const HomeBanner = () => {
                     <img src="banner.jpg"
                         className="object-contain rounded-md"
                     />
+                    <Image fill src="/banner.jpg" alt="" className="w-full h-full object-contain" />
                 </div>
             </div>
         </div>
     );
 }
-
 export default HomeBanner;
