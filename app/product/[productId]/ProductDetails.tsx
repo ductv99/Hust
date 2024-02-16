@@ -44,7 +44,7 @@ const productDetails: React.FC<productDetailsProps> = ({ product }) => {
             selectedImg: { ...product.images[0] },
             quantity: 1,
             price: product.price,
-            size: 0
+            size: product.sizes[0]
         }
     )
 
