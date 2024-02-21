@@ -74,7 +74,7 @@ const Footer = () => {
                     <div className="w-full md:w-1/3 mb-6 md:mb-0">
                         <h3 className="text-base font-bold mb-2">Giới Thiệu</h3>
                         <p>
-                            Đây là sản phẩm website được lên ý tưởng và thực hiện
+                            Đây là sản phẩm website được lên ý tưởng và thực hiện bởi
                             sinh viên: Trần Văn Đức lớp LTBK-2021.
                         </p>
                         <p>&copy; {new Date().getFullYear()} L&D Shop. Đã đăng ký bản quyền.</p>
